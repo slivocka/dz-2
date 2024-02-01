@@ -1,0 +1,59 @@
+import random
+
+class Pet:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.hunger = random.randint(0, 10)  # Hunger
+        self.happiness = random.randint(0, 10)  # Happiness
+        self.health = random.randint(0, 10)  # Health
+        self.alive = True
+
+    def eat(self):
+        print(f"{self.name} is eating...")
+        self.hunger -= 2
+        self.happiness += 1
+        self.health += 1
+
+    def play(self):
+        print(f"{self.name} is playing...")
+        self.hunger += 1
+        self.happiness += 2
+        self.health -= 1
+
+    def sleep(self):
+        print(f"{self.name} is sleeping...")
+        self.hunger += 1
+        self.happiness += 1
+        self.health += 2
+
+    def is_alive(self):
+        if self.hunger >= 10 or self.happiness <= 0 or self.health <= 0:
+            print(f"{self.name} has passed away...")
+            self.alive = False
+
+    def day_passes(self):
+        self.hunger += 1
+        self.happiness -= 1
+        self.health -= 1
+
+    def live(self, days=30):
+        for day in range(1, days+1):
+            print(f"Day {day}:")
+            action = random.choice(["eat", "play", "sleep"])
+            if action == "eat":
+                self.eat()
+            elif action == "play":
+                self.play()
+            elif action == "sleep":
+                self.sleep()
+            self.day_passes()
+            self.is_alive()
+            if not self.alive:
+                break
+            print(f"{self.name}'s Status: Hunger - {self.hunger}, Happiness - {self.happiness}, Health - {self.health}")
+            print("-------------------------")
+
+# Example usage
+cat = Pet("барсик", "Cat")
+cat.live()
